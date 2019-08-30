@@ -9,3 +9,6 @@ tidy_hgw <-   unnest_tokens(hgwells,word, text) %>% anti_join(stop_words)
 
 count(tidy_hgw, word, sort = T) %>% slice(1:20)
 
+portrait <- gutenberg_download(c(4217),
+                            meta_fields = "title")
+
