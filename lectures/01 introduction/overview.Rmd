@@ -44,7 +44,7 @@ match <- read_excel("../../datasets/sport/DublinKerry19.xlsx")
 |4 | The CRAN Library and Calling Functions in R|
 |5 | Tidy Data and Data Frames|
 |6-7 |**ggplot2** - A Grammar of Graphics|
-|8-10 |**dplyr2** - The Grammar of Data Manipulation|
+|8-10 |**dplyr** - A Grammar of Data Manipulation|
 |11-12 |Introduction to Hardware|
 
 
@@ -92,7 +92,8 @@ filter(match,Time>34) %>% group_by(Team,From) %>% summarise(Points=sum(Points)) 
 ## Processing - Visualising the Data
 ```{r,echo=F,fig.width=6, fig.height=3.5}
 ggplot(data=match,aes(x=Time,y=Score,colour=Team))+
-  geom_line()+geom_point(size=2)+xlab("Minute")+ylab("Points")
+  geom_step()+geom_point(size=2)+xlab("Minute")+ylab("Points")+
+  geom_vline(xintercept = 34)
 ```
 
 ## Data processing in R

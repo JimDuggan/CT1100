@@ -10,5 +10,5 @@ scores <- match %>% group_by(Team,Scorer) %>% summarise(Points=sum(Points)) %>%
           arrange(desc(Points))
 
 ggplot(data=match,aes(x=Time,y=Score,colour=Team))+
-  geom_line()+geom_point(size=2)+xlab("Minute")+ylab("Points")+
+  geom_step()+geom_point(size=2)+xlab("Minute")+ylab("Points")+
   ggtitle("The Race for Sam 2019")
