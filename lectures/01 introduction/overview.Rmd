@@ -1,11 +1,12 @@
 ---
-title: '1. Computer Systems - Course Overview'
+title: "1. Computer Systems - Course Overview"
 author: "CT1100 - J. Duggan"
 output:
+  ioslides_presentation: default
   beamer_presentation:
-    theme: "CambridgeUS"
-    colortheme: "beaver"
-    fonttheme: "structurebold"
+    colortheme: beaver
+    fonttheme: structurebold
+    theme: CambridgeUS
 ---
 
 ```{r setup, include=FALSE}

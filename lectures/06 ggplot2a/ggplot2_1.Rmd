@@ -1,0 +1,155 @@
+---
+title: '6. Exploring Data with ggplot2 (1)'
+author:  "CT1100 - J. Duggan"
+output:
+  beamer_presentation:
+    theme: "CambridgeUS"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(dplyr)
+```
+
+## Data Exploration
+
+“Data exploration is the art of looking at your data, rapidly generating hypotheses, quickly testing them, then repeating again and again and again.” (Wickham and Grolemund 2017).
+
+```{r, echo=F,fig.width=4, fig.height=1.8}
+ggplot(data = mpg) +   # specify the source tibble
+  geom_point(mapping=aes(x=displ,  # map x, y vars
+                         y=hwy,
+                         colour=class))
+```
+
+## Data visualisation with **ggplot2**
+
+“The simple graph has brought more information to the data analyst’s mind that any other device.” – John Tukey 
+
+```{r,echo=T}
+d <- ggplot2::mpg  # get a copy of mpg
+glimpse(d)  # show structure and some data
+```
+
+## Fuel Economy Data Set (ggplot2::mpg)
+
+This dataset contains a subset of the fuel economy data that the EPA makes available on http://fueleconomy.gov. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.
+
+|**manufacturer**| car manufacturer| **drv** | drive type |
+|:------|:----------|:-----------|:-----------|
+|**model**| model name| **cty** | city miles per gallon |
+|**displ**| engine disp (l)| **hwy** | highway miles per gallon |
+|**year**| year of make| **fl** | fuel type |
+|**model**| model name| **cty** | city miles per gallon |
+|**cyl**| number of cylinders| **class** | "type" of car |
+|**trans**| type of transm.|  | |
+
+## Exploring Data
+Generate a first graph to help answer the following question
+
+- Do cars with big engines use more fuel than cars with small engines
+- What might the relationship between engine size and fuel efficiency look like?
+  + Positive or negative?
+  + Linear or non-linear?
+- Variable (scatter plot)
+  + **displ**, a car engine size in litres (x)
+  + **hwy**, a car's fuel efficiency on highway - (y)
+- ggplot2: layered approach
+  + ggplot(data=*tibble_name*) + geom_point(mapping=aes(x=*col1*,y=*col2*))
+
+## Plotting with ggplot2
+
+```{r,echo=T,fig.width=5, fig.height=2.5}
+ggplot(data = d) +   # specify the source tibble
+  geom_point(mapping=aes(x=displ,  # map x, y vars
+                         y=hwy))
+```
+
+## Interpreting the plot
+- The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy)
+- Cars with big engines use more fuel
+- Does this confirm or refute your hypothesis about fuel efficiency and engine size?
+```{r,echo=F,fig.width=4, fig.height=2.1}
+ggplot(data = d,aes(x=displ, y=hwy)) +  
+  geom_point() 
+```
+
+## Aesthetic Mappings
+- A third variable can be added to a 2-D plot by mapping it to an aesthetic.
+- An aesthetic is a visual property of the plot’s objects.
+- An aesthetic’s level could be colour, size or shape
+
+
+```{r,echo=T}
+unique(d$class)
+```
+
+## In ggplot2 - Adding the third variable
+```{r,echo=T,fig.width=5, fig.height=2.5}
+ggplot(data=d)+
+  geom_point(aes(x=displ,y=hwy,colour=class))
+```
+
+## Exploring Data Relationships
+|Input (X)| Output (Y)| Hypothesis?|Reason |
+|:------:|:----------|:----------|:----------|
+|Displacement| City MPG| Negative? |Bigger cars,less efficient|
+|Highway MPG| City MPG| Positive? |Should be closely related |
+|Cylinders| Highways MPG| Negative? |More cylinders, less eff.|
+|Cylinders| Displacement| Negative? |More cylinders, bigger eng.|
+
+## x=displ, y=cty
+```{r, echo=T,fig.width=5, fig.height=2.3}
+ggplot(data = mpg) +   # specify the source tibble
+  geom_point(mapping=aes(x=displ,  # map x, y vars
+                         y=cty))
+```
+
+## x=hwy, y=cty
+```{r, echo=T,fig.width=5, fig.height=2.3}
+ggplot(data = mpg) +   # specify the source tibble
+  geom_point(mapping=aes(x=hwy,  # map x, y vars
+                         y=cty))
+```
+
+## x=cyl, y=cty
+```{r, echo=T,fig.width=5, fig.height=2.3}
+ggplot(data = mpg) +   # specify the source tibble
+  geom_point(mapping=aes(x=cyl,  # map x, y vars
+                         y=cty))
+```
+
+## x=cyl, y=displ
+```{r, echo=T,fig.width=5, fig.height=2.3}
+ggplot(data = mpg) +   # specify the source tibble
+  geom_point(mapping=aes(x=cyl,  # map x, y vars
+                         y=displ))
+```
+
+## Challenge 6.1
+- Redraw the graphs, and colour by **car class**
+- Vary the size of the point by using the number of cylinders
+
+|Input (X)| Output (Y)| Hypothesis?|Reason |
+|:------:|:----------|:----------|:----------|
+|Displacement| City MPG| Negative? |Bigger cars,less efficient|
+|Highway MPG| City MPG| Positive? |Should be closely related |
+|Cylinders| Highways MPG| Negative? |More cylinders, less eff.|
+|Cylinders| Displacement| Negative? |More cylinders, bigger eng.|
+
+## Summary
+- “The simple graph has brought more information to the data analyst’s mind that any other device.” – John Tukey ]
+- “Data exploration is the art of looking at your data, rapidly generating hypotheses, quickly testing them, then repeating again and again and again.” (Wickham and Grolemund 2017).
+- ggplot2 provides a layered approach to building charts
+
+```{r,echo=F,fig.width=2, fig.height=2}
+# this is a hack to call plot but make the plot tiny
+plot(1:1,axes=FALSE,xlab = "", ylab="",cex = .001)
+```
+
+
+

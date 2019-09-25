@@ -1,0 +1,162 @@
+---
+title: '5. Data Frames and Tidy Data'
+author:  "CT1100 - J. Duggan"
+output:
+  beamer_presentation:
+    theme: "CambridgeUS"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+match <- read_excel("../../datasets/sport/DublinKerry19.xlsx")
+```
+
+## Recap - Course Topics
+|Lecture(s)| Topic|
+|:------:|:----------|
+|1 | Course Introduction|
+|2 | The Processing Cycle and Binary Data|
+|3 | Data in R with Atomic Vectors|
+|4 | The CRAN Library and Calling Functions in R|
+|5 | **Tidy Data and Data Frames**|
+|6-7 |**ggplot2** - A Grammar of Graphics|
+|8-10 |**dplyr** - A Grammar of Data Manipulation|
+|11-12 |Introduction to Hardware|
+
+## R Data Types
+ 
+|| Homogenous| Heterogenous |
+|:------|:----------|:-----------|
+|1d | Atomic Vector|List|
+|2d | Matrix|**Data Frame/Tibble**|
+|nd | Array| |
+
+- The most common way of storing data in R
+- Under the hood, a data frame is a list of equal-length vectors
+- A two-dimensional structure (rectangular data), with rows and columns
+- Similar to a worksheet in Excel
+
+## Tidy Data - Overview (Wickham 2017)
+
+- What is data tidying?
+  + Structuring datasets to facilitate analysis
+- The tidy data standard is designed to:
+  + Facilitate initial exploration and analysis of data
+  + Simplify the development of data analysis tools that work well together
+- Principles closely related to relational algebra (Codd 1990)
+- Advantage to picking one consistent way of storing data. Easier to learn tools that work with tidy data because they have a underlying uniformity
+- Specific advantage to placing variables in columns because it allows R’s vectorised functions to shine.
+- **dplyr**, **ggplot2** designed to work with tidy data
+
+## Rules for a Tidy Data Set
+- Each variable must have its own column
+- Each observation must have its own row
+- Each value must have its own cell
+
+```{r, echo=F,out.width='100%'}
+ knitr::include_graphics("images/04 Tidy Rules.png")
+```
+
+## A tidy data set
+```{r,echo=F}
+m2 <- select(match,Time, Team, Scorer, From, Type,Points, Score)
+knitr::kable(slice(m2,1:10))
+``` 
+ 
+## mtcars data frame
+A data frame with 32 observations on 11 variables.
+
+- **mpg**	Miles/(US) gallon	
+- **cyl**	Number of cylinders	
+- **disp**	Displacement (cu.in.)	
+- **hp**	Gross horsepower	
+- **drat**	Rear axle ratio	
+- **wt**	Weight (1000 lbs)	
+- **qsec**	1/4 mile time	
+- **vs**	V/S	
+- **am**	Transmission (0 = automatic, 1 = manual)	
+- **gear**	Number of forward gears	
+- **carb**	Number of carburetors
+
+## mtcars sample data
+
+```{r,echo=T}
+knitr::kable(mtcars[1:10,1:6])
+```
+
+## mtcars using **str()**
+```{r,echo=T}
+str(mtcars)
+```
+## head() and tail() functions
+```{r,echo=T}
+head(mtcars[,1:6])
+tail(mtcars[,1:6])
+```
+
+## subset()
+- The subset( ) function can be used to select variables and observations.
+- Takes the data frame, the conditions, and the columns to return
+```{r,echo=T}
+subset(mtcars,cyl==6,select=c("mpg","cyl"))
+
+```
+
+## Challenge 5.1: Using the **subset** function
+- List all the cars that have an **mpg** greater than the average
+- List the car(s) with the greatest displacement (**disp**)
+
+## Adding new columns to a data frame
+- Often the initial data set may not contain sufficient information for analysis
+- Adding new variables (columns) is an important feature to have
+- Data frames support this: columns can be combined or new information used
+
+```{r,echo=T}
+mtcars$name <- rownames(mtcars)
+mtcars[1:5,-(1:8)]
+```
+
+## Challenge 1.6
+Create a new column on mtcars that contains kilometers per gallon. 
+
+
+## The tibble
+- Tibbles are data frames, but they tweak some older behaviours to make life a little easier
+- One of the unifying features of the tidyverse
+- To coerce a data frame to a tibble, use as_tibble()
+- A tibble can be created from individual vectors using tibble()
+- The data set **ggplot2::mpg** is a tibble
+
+## Tibble abbreviations
+
+```{r,echo=T}
+as_tibble(mtcars)[1:2,1:6]
+```
+
+|Abbreviation| Data Type |
+|:------|:--------|
+|int | integers |
+|dbl | double (numeric)|
+|chr | character vectors| 
+|dttm | date-times| 
+|fctr | categorical| 
+|date | dates |
+
+
+## Summary
+- Data frames/tibbles are the most common way of storing heterogeneous data in R
+- Under the hood, a data frame is a list of equal-length vectors, and shares properties of both a list and a matrix
+- Key for processing rectangular data, ideally in "tidy" format (every row is an observation, every column a variable)
+
+```{r,echo=F,fig.width=2, fig.height=2}
+# this is a hack to call plot but make the plot tiny
+plot(1:1,axes=FALSE,xlab = "", ylab="",cex = .001)
+```
+
+
