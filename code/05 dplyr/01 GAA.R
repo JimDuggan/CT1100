@@ -8,7 +8,7 @@ match <- read_excel("datasets/sport/DublinKerry19.xlsx")
 
 scores <- match %>% group_by(Team,Scorer) %>% summarise(Points=sum(Points)) %>%
           arrange(desc(Points))
-
+re
 ggplot(data=match,aes(x=Time,y=Score,colour=Team))+
   geom_step()+geom_point(size=2)+xlab("Minute")+ylab("Points")+
   ggtitle("The Race for Sam 2019")
