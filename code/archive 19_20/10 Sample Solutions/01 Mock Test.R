@@ -7,12 +7,11 @@ library(dplyr)
 # (1) create you own copy of the tibble
 my_mpg <- mpg
 
-
 # (2) show the top five cars with the highest city miles per gallon
 arrange(my_mpg,desc(cty))
 
 # (3) Reduce the number of variables to 4
-my_mpg2 <- select(mpg,manufacturer,model,year,cty, hwy)
+my_mpg2 <- select(my_mpg,manufacturer,model,year,cty, hwy)
 
 # (4) Get the summary of cty and hwy (averages over all manufacturers)
 summ <- my_mpg %>% 
