@@ -1,9 +1,9 @@
 library(ggplot2)
 
-ggplot(data=mpg, aes(x=displ,y=cty,colour=class))+
+ggplot(data=mpg, aes(x=displ,y=hwy,colour=class))+
   geom_point()
 
-ggplot(data=mpg, aes(x=displ,y=cty,colour=class,size=cyl))+
+ggplot(data=mpg, aes(x=displ,y=hwy,colour=class,size=cyl))+
   geom_point()
 
 ggplot(data=mpg, aes(x=displ,y=cty,colour=class,size=cyl,shape=drv))+

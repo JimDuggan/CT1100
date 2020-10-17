@@ -8,4 +8,9 @@ library(nycflights13)
 library(ggplot2)
 library(aimsir17)
 
+ggplot(data=mpg,aes(x=displ,y=cty))+geom_point()
+
+
+ggplot(data=mpg)+geom_point(aes(x=displ,y=cty))
+
 
