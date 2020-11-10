@@ -16,7 +16,12 @@ ggplot(data=mh,aes(x=date,y=temp,colour=station))+
 ggplot(data=mh,aes(x=date,y=temp,size=rain,colour=station))+
   geom_point()
 
-ggplot(mpg,aes(x=displ,y=hwy,colour=class,size=cyl))+
-  geom_point()+facet_wrap(~manufacturer)
+
+library(lubridate)
+
+mh <- mutate(mh,Day=wday(date,label = T))
+
+ggplot(data=mh,aes(x=date,y=temp,size=rain,colour=Day, shape=station))+
+  geom_point()
 
 

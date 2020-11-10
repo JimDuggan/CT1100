@@ -1,5 +1,8 @@
 library(ggplot2)
 
+ggplot(data=mpg, aes(x=displ,y=hwy))+
+  geom_point()
+
 ggplot(data=mpg, aes(x=displ,y=hwy,colour=class))+
   geom_point()
 
